@@ -1,5 +1,6 @@
-ARG BASE_IMAGE
-FROM ${BASE_IMAGE:-nvidia/cuda:11.2.2-cudnn8-runtime-ubuntu20.04}
+#ARG BASE_IMAGE
+#FROM ${BASE_IMAGE:-nvidia/cuda:11.2.2-cudnn8-runtime-ubuntu20.04}
+FROM nvidia/cuda:11.2.2-cudnn8-runtime-ubuntu20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV CUDA=11.2

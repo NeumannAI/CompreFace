@@ -5,7 +5,7 @@ volumes:
 
 services:
   compreface-postgres-db:
-    image: ${registry}compreface-postgres-db:${POSTGRES_VERSION}
+    image: postgres:11.5
     restart: always
     container_name: "compreface-postgres-db"
     environment:
@@ -16,7 +16,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   compreface-admin:
-    image: ${registry}compreface-admin:${ADMIN_VERSION}
+    image: ${registry}deerface-admin:${ADMIN_VERSION}
     restart: always
     container_name: "compreface-admin"
     environment:
@@ -37,7 +37,7 @@ services:
       - compreface-api
 
   compreface-api:
-    image: ${registry}compreface-api:${API_VERSION}
+    image: ${registry}deerface-api:${API_VERSION}
     restart: always
     container_name: "compreface-api"
     depends_on:
@@ -55,7 +55,7 @@ services:
       - READ_TIMEOUT=${read_timeout:-60000}
 
   compreface-fe:
-    image: ${registry}compreface-fe:${FE_VERSION}
+    image: compare:latest
     restart: always
     container_name: "compreface-ui"
     ports:
@@ -69,10 +69,15 @@ services:
       - PROXY_CONNECT_TIMEOUT=${connection_timeout:-10000}ms
 
   compreface-core:
-    image: ${registry}compreface-core:${CORE_VERSION}
+    image: exadel/compreface-core:${CORE_VERSION}
     restart: always
     container_name: "compreface-core"
-    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
     environment:
       - ML_PORT=3000
       - UWSGI_PROCESSES=${uwsgi_processes:-2}
