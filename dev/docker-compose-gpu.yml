@@ -109,3 +109,17 @@ services:
       - ML_PORT=3000
       - UWSGI_PROCESSES=${uwsgi_processes:-1}
       - UWSGI_THREADS=${uwsgi_threads:-1}
+      
+  tensorflow-lite-rest-server:
+      image: tensorflow-lite-rest-server:latest
+      restart: always
+      container_name: "tensorflow-lite-rest-server"
+      ports:
+        - "5000:5000"
+
+  wt-liveness:
+    image: wt-liveness-cpp:latest
+    restart: always
+    container_name: "wt-liveness"
+    ports:
+      - "9001:9001"
