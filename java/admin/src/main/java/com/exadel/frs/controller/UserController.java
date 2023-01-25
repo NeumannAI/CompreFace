@@ -26,16 +26,16 @@ import com.exadel.frs.commonservice.entity.User;
 import com.exadel.frs.commonservice.enums.GlobalRole;
 import com.exadel.frs.commonservice.enums.Replacer;
 import com.exadel.frs.commonservice.exception.DemoNotAvailableException;
-import com.exadel.frs.dto.ui.ChangePasswordDto;
-import com.exadel.frs.dto.ui.ForgotPasswordDto;
-import com.exadel.frs.dto.ui.ResetPasswordDto;
-import com.exadel.frs.dto.ui.UserAutocompleteDto;
-import com.exadel.frs.dto.ui.UserCreateDto;
-import com.exadel.frs.dto.ui.UserDeleteDto;
-import com.exadel.frs.dto.ui.UserResponseDto;
-import com.exadel.frs.dto.ui.UserRoleResponseDto;
-import com.exadel.frs.dto.ui.UserRoleUpdateDto;
-import com.exadel.frs.dto.ui.UserUpdateDto;
+import com.exadel.frs.dto.ChangePasswordDto;
+import com.exadel.frs.dto.ForgotPasswordDto;
+import com.exadel.frs.dto.ResetPasswordDto;
+import com.exadel.frs.dto.UserAutocompleteDto;
+import com.exadel.frs.dto.UserCreateDto;
+import com.exadel.frs.dto.UserDeleteDto;
+import com.exadel.frs.dto.UserResponseDto;
+import com.exadel.frs.dto.UserRoleResponseDto;
+import com.exadel.frs.dto.UserRoleUpdateDto;
+import com.exadel.frs.dto.UserUpdateDto;
 import com.exadel.frs.exception.AccessDeniedException;
 import com.exadel.frs.exception.UserDoesNotExistException;
 import com.exadel.frs.helpers.SecurityUtils;
@@ -256,10 +256,8 @@ public class UserController {
             @ApiParam(value = "An email of a user", required = true)
             @Valid
             @RequestBody
-            final ForgotPasswordDto forgotPasswordDto,
-            final HttpServletResponse response) throws IOException {
+            final ForgotPasswordDto forgotPasswordDto) {
         resetPasswordTokenService.assignAndSendToken(forgotPasswordDto.getEmail());
-        redirectToLoginPage(response);
     }
 
     @PutMapping("/reset-password")
@@ -271,11 +269,9 @@ public class UserController {
             final ResetPasswordDto resetPasswordDto,
             @ApiParam(value = "A reset password token", required = true)
             @RequestParam
-            final String token,
-            final HttpServletResponse response) throws IOException {
+            final String token) {
         val user = resetPasswordTokenService.exchangeTokenOnUser(token);
         userService.resetPassword(user, resetPasswordDto.getPassword());
-        redirectToLoginPage(response);
     }
 
     private void redirectToLoginPage(final HttpServletResponse response) throws IOException {

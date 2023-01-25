@@ -1,5 +1,8 @@
 server:
   port: ${CRUD_PORT:8080}
+  tomcat:
+    relaxed-path-chars: [ '[', ']' ]
+    relaxed-query-chars: [ '[', ']' ]
 
 app:
   security:
@@ -52,6 +55,13 @@ spring:
     database: postgresql
     open-in-view: true
     generate-ddl: false
+  liquibase:
+    parameters:
+      common-client:
+        client-id: ${app.security.oauth2.clients.COMMON.client-id}
+        access-token-validity: ${app.security.oauth2.clients.COMMON.access-token-validity}
+        refresh-token-validity: ${app.security.oauth2.clients.COMMON.refresh-token-validity}
+        authorized-grant-types: ${app.security.oauth2.clients.COMMON.authorized-grant-types}
   mail:
     enable: ${ENABLE_EMAIL_SERVER:false}
     host: ${EMAIL_HOST:example.com}
@@ -72,20 +82,6 @@ spring:
         auth: true
   main:
     allow-bean-definition-overriding: true
-  quartz:
-    job-store-type: jdbc
-    jdbc:
-      initialize-schema: always
-    properties:
-      org.quartz:
-        scheduler:
-          instanceName: statistics scheduler
-          instanceId: AUTO
-        jobStore:
-          driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
-        threadPool:
-          # thread pool capacity (default is 10)
-          threadCount: 1
 
 security:
   signing-key: MaYzkSjmkzPC57L
@@ -118,9 +114,6 @@ forgot-password:
   cleaner:
     scheduler:
       cron: '0 0 0 * * ?'
-  email:
-    subject: 'CompreFace Reset Password'
-    message: 'In order to reset a password click the following link: %s/admin/reset-password?token=%s'
 
 # "environment" and "image" blocks should be same in those files:
 #    * api/src/main/resources/application.properties
