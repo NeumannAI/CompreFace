@@ -20,10 +20,26 @@
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
+@font-face {
+  font-family: 'JekoBold';
+  src: url("/assets/img/Jeko/Jeko-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'JekoMedium';
+  src: url("/assets/img/Jeko/Jeko-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'JekoRegular';
+  src: url("/assets/img/Jeko/Jeko-Regular.ttf") format("truetype");
+}
+
+
 @include mat-core();
 
 $typography: mat-typography-config(
-  $font-family: 'Poppins, sans-serif',
+  $font-family: 'JekoBold, JekoMedium, JekoRegular',
   $headline: mat-typography-level(28px, 35px, 600),
   // .mat-headline
   $title: mat-typography-level(22px, 28px, 600),
@@ -41,6 +57,26 @@ $typography: mat-typography-config(
   $button: mat-typography-level(16px, 19px, 500),
   // .mat-button
 );
+
+// $typography: mat-typography-config(
+//   $font-family: 'Poppins, sans-serif',
+//   $headline: mat-typography-level(28px, 35px, 600),
+//   // .mat-headline
+//   $title: mat-typography-level(22px, 28px, 600),
+//   // .mat-title
+//   $subheading-2: mat-typography-level(22px, 27px, 600),
+//   // .mat-subheading-2
+//   $subheading-1: mat-typography-level(18px, 22.5px, 600),
+//   // .mat-subheading-1
+//   $body-1: mat-typography-level(16px, 22.5px, 400),
+//   // .mat-body-1
+//   $body-2: mat-typography-level(14px, 20px, 400),
+//   // .mat-body-2
+//   $caption: mat-typography-level(12px, 17px, 400),
+//   // .mat-caption
+//   $button: mat-typography-level(16px, 19px, 500),
+//   // .mat-button
+// );
 
 $primary_palette: (
   Main: $primary,

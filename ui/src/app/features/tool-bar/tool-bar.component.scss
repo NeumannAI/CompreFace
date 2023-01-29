@@ -23,7 +23,7 @@
   z-index: 10;
   height: 95px;
   justify-content: center;
-  background: $super-light-gray;
+  background: $super-light-gray-bg;
 
   .container {
     justify-content: space-between;
@@ -38,7 +38,7 @@
       min-width: 0;
 
       img {
-        background: $super-light-gray;
+        background: $super-light-gray-bg;
       }
 
       .logo-main {
@@ -63,6 +63,7 @@
       background: none;
       padding: 6px;
       line-height: 24px;
+      color: white;
 
       &_wrapper {
         max-width: 222px;
