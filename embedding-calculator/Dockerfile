@@ -1,4 +1,9 @@
 ARG BASE_IMAGE
+ARG FACE_DETECTION_PLUGIN=insightface.FaceDetector@retinaface_r50_v1
+ARG CALCULATION_PLUGIN=insightface.Calculator@arcface_r100_v1
+ARG EXTRA_PLUGINS=insightface.LandmarksDetector,insightface.GenderDetector,insightface.AgeDetector
+ARG BASE_IMAGE=compreface-core-base:base-cuda100-py37
+ARG GPU_IDX=0
 FROM ${BASE_IMAGE:-python:3.7-slim}
 
 RUN apt-get update && apt-get install -y build-essential cmake git wget unzip \
